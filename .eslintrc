@@ -44,6 +44,8 @@
         "devDependencies": [
           "**/*.test.js", 
           "**/*.spec.js", 
+          "**/*.spec.ts", 
+          "**/*.spec.tsx", 
           "**/test/**/*.js", 
           "**/__stories__/**/*.js", 
           "**/*.sb.*",
