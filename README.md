@@ -1,38 +1,50 @@
-# 1PAW - NPM Starter
+# React Wait for Window
 
-This project is an npm package starter used by @calummoore for @1productaweek.
+Waits for a window prop to become available. E.g. if you're loading Stripe async, you will need to wait for it to become available before trying to use any components that rely on it.
 
-It has the following additional features:
-
- * ✅ Typescript
- * ✅ Opinionated ESLint
- * ✅ Jest
- * ✅ React (optional)
-
-
-### Storybook
-
-Storybook is not included by default, but this can be easily installed with:
-
-```sh
-cd my-project-directory
-npx -p @storybook/cli sb init
+```
+npm install @1producataweek/react-wait-for-window
 ```
 
-Then add these dependencies:
-```sh
-yarn add --dev @storybook/preset-typescript ts-loader fork-ts-checker-webpack-plugin
-```
 
-Finally, add overwrite the contents of  `.storybook/main.js` file that was created in the step above:
+### useWaitForWindow(prop: string, timer: number): boolean
 
-```js
-module.exports = {
-  stories: ['../stories/**/*.sb.tsx', '../**/__stories__/**/*.sb.tsx'],
-  addons: [
-    '@storybook/preset-typescript',
-    '@storybook/addon-actions', 
-    '@storybook/addon-links', 
-  ],
+A hook that will update when the window prop becomes available. Returns true/false depending on whether the prop is set on `window`. The timer is the interval that the prop should be checked.
+
+```tsx
+import { useWaitForWindow } from '@1producataweek/react-wait-for-window'
+
+function Component () {
+  const propIsAvailable = useWaitForWindow('stripe', 1000)
+
+  if (!propIsAvailable) return 'Loading'
+
+  return <ComponentThatDependsOnWindowProp />
 }
 ```
+
+
+### WaitForWindow
+
+A hook that will update when the window prop becomes available. Returns true/false depending on whether the prop is set on `window`. The timer will set 
+
+```tsx
+import { WaitForWindow } from '@1producataweek/react-wait-for-window'
+
+function Component () {
+  return (
+    <WaitForWindow prop='' timer={1000}>
+      <ComponentThatDependsOnWindowProp />
+    </WaitForWindow>
+  )
+}
+```
+
+
+
+### Made by 1PAW
+
+https://1productaweek.com
+  |
+  |- [Ralley](https://ralley.io) - queue as a service
+  |- [Snapboard](https://snapboard.io) - simple hackable dashboard
